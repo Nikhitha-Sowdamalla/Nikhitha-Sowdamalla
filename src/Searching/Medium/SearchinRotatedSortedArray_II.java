@@ -1,0 +1,50 @@
+package Searching.Medium;
+
+public class SearchinRotatedSortedArray_II {
+    public boolean search(int[] nums, int target) {
+int n = nums.length;
+        int high = nums.length-1;
+        int low = 0;
+       while(low<=high)
+        {
+            int mid = low+(high-low)/2;
+
+            if(nums[mid]==target)
+            {
+                return true;
+            }
+            // If duplicates exist, move pointers to skip them
+            if (nums[low] == nums[mid] && nums[mid] == nums[high]) {
+                low++;
+                high--;
+                continue;
+            }
+           //checking if the array is left sorted
+            if(nums[low]<=nums[mid])
+            {
+                if(nums[low]<=target&&target<=nums[mid])
+                {
+                    high = mid-1;
+                }
+                else
+                {
+                    low = mid+1;
+                }
+            }
+           //checking if the array is right sorted
+            else
+            {
+                if(nums[mid]<=target&&target<=nums[high])
+                {
+                    low = mid+1;
+                }
+                else
+                {
+                    high = mid-1;
+                }
+            }
+        }
+       return false;
+    }
+
+}
